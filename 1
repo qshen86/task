@@ -1,0 +1,85 @@
+# 【链表】
+# - 实现单链表、循环链表、双向链表，支持增删操作
+# - 实现单链表反转
+# - 实现两个有序的链表合并为一个有序链表
+# 实现求链表的中间结点
+
+
+# 单链表节点
+
+#每个结点有两个域，左边值域用于存放用户数据，右边叫指针域，存储到下一个元素的指针
+#head结点，永远指向第一结点
+#tail结点，永远指向最后结点
+
+class ListNode(object):
+    def __init__(self, data, next):
+        self.data = data 
+        self.next = None 
+
+# 创建链表类
+class CreatList(object):
+    def __init__(self): 
+        self.head = None             #定义头部
+        self.tail = None             #定义尾部
+
+    # 链表初始化函数
+    def InitList(self, data):
+        # 创建头结点
+        self.head = ListNode(data[0])
+        tmp_node = self.next
+        index = 0
+        for i in data[1:]:
+            tmp_node.next = ListNode(i)
+            tmp_node = tmp_node.next
+            index += 1
+        self.tail = ListNode(data[index])
+            
+
+class SingleLinkList(object):
+    # 链表插入数据，在第i个结点后插入数据data
+    
+    def length(self):
+        i = 0
+        if self.next != 0:
+           i += 1
+        return i
+    def Insert(self, i, data):
+        value = CreatList(data)
+        if i == 0:                   #在链表头部之前添加元素
+           value.next = self.head
+           self.head = value 
+        if i > 0 & i == length(data): #在链表尾部之前添加元素
+           self.tail = value.next
+        if i > 0 & i < length(data):  #在链表中间添加元素
+           counter = 0       
+           p = self.head
+           while counter < (i-1):
+                counter += 1
+                p = p.next
+           value.next=p.next
+           p.next=value
+                 
+    # 链表删除函数，删除第i个结点
+    def Delete(self, i):
+        if i > self.length():
+            print("超过范围，删除失败")
+            exit(0)
+        index = 1
+        p = self.head
+        while index < i:
+            pre = p
+            index += 1
+            p = p.next
+        pre.next = p.next
+        p = None
+        
+    # 链表逆序
+    def reverse(self):
+        p = self.head
+        q = None
+        while p:
+            temp = p.next
+            p.next = q
+            q = p
+            p = temp
+        self.head = q  
